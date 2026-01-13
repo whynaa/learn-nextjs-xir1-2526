@@ -1,16 +1,16 @@
 import ShowPortofolio from './show';
-import { arrayPorto } from '../data/portofolio';
+import { arrayPorto, PortofolioItem } from '../data/portofolio';
 
 type PageProps = {
-  searchParams?: {
+  searchParams: Promise<{
     category?: string;
-  };
+  }>;
 };
 
-export default function PortofolioPage({ searchParams }: PageProps) {
-  const category = searchParams?.category;
+export default async function PortofolioPage({ searchParams }: PageProps) {
+  const { category } = await searchParams;
 
-  const filteredPorto = category
+  const filteredPorto: PortofolioItem[] = category
     ? arrayPorto.filter(
         (porto) => porto.category.toLowerCase() === category.toLowerCase()
       )
